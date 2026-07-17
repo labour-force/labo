@@ -81,7 +81,7 @@ function renderCtaCard(): string {
           type="button"
           class="btn btn--cta"
           data-open-registration
-          data-vacancy-title="Общая заявка"
+          data-vacancy-title=""
         >
           ЗАПОЛНИТЬ
         </button>
