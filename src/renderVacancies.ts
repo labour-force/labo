@@ -8,12 +8,29 @@ function escapeHtml(text: string): string {
     .replaceAll('"', '&quot;');
 }
 
+function escapeAttr(text: string): string {
+  return escapeHtml(text).replaceAll("'", '&#39;');
+}
+
 function tagTone(tag: string): string {
   if (tag.includes('ОПЫТ') && !tag.includes('БЕЗ')) return 'tag--amber';
   if (tag.includes('ЖИЛЬ') || tag === 'С ЖИЛЬЕМ') return 'tag--amber';
-  if (tag.includes('ЖЕНЩИН') || tag.includes('ЯЗЫК') || tag.includes('ПАР') && tag.includes('ДЛЯ П')) return 'tag--rose';
+  if (
+    tag.includes('ЖЕНЩИН') ||
+    tag.includes('ЯЗЫК') ||
+    (tag.includes('ПАР') && tag.includes('ДЛЯ П'))
+  ) {
+    return 'tag--rose';
+  }
   if (tag.includes('СТУДЕНТ')) return 'tag--green';
-  if (tag.includes('МУЖЧИН') || tag.includes('ВСЕХ') || tag.includes('ПАР') || tag.includes('ПИТАН')) return 'tag--blue';
+  if (
+    tag.includes('МУЖЧИН') ||
+    tag.includes('ВСЕХ') ||
+    tag.includes('ПАР') ||
+    tag.includes('ПИТАН')
+  ) {
+    return 'tag--blue';
+  }
   if (tag.includes('БЕЗ')) return 'tag--sand';
   return 'tag--sand';
 }
@@ -27,32 +44,48 @@ function renderVacancyCard(v: Vacancy): string {
       : '';
 
   return `
-    <li class="vacancy-card">
-      <h3 class="vacancy-card__title">${escapeHtml(v.title)}</h3>
-      <p class="vacancy-card__salary">${escapeHtml(v.salary)}</p>
-      <p class="vacancy-card__meta">
-        <span class="vacancy-card__meta-icon" aria-hidden="true">📍</span>
-        ${escapeHtml(v.location)}
-      </p>
-      <p class="vacancy-card__meta">
-        <span class="vacancy-card__meta-icon" aria-hidden="true">📄</span>
-        ${escapeHtml(v.contract)}
-      </p>
-      ${tagsHtml}
+    <li>
+      <button
+        type="button"
+        class="vacancy-card"
+        data-open-registration
+        data-vacancy-title="${escapeAttr(v.title)}"
+      >
+        <h3 class="vacancy-card__title">${escapeHtml(v.title)}</h3>
+        <p class="vacancy-card__salary">${escapeHtml(v.salary)}</p>
+        <p class="vacancy-card__meta">
+          <span class="vacancy-card__meta-icon" aria-hidden="true">📍</span>
+          ${escapeHtml(v.location)}
+        </p>
+        <p class="vacancy-card__meta">
+          <span class="vacancy-card__meta-icon" aria-hidden="true">📄</span>
+          ${escapeHtml(v.contract)}
+        </p>
+        ${tagsHtml}
+      </button>
     </li>
   `;
 }
 
 function renderCtaCard(): string {
   return `
-    <li class="vacancy-card vacancy-card--cta">
-      <div class="vacancy-card__cta-icon" aria-hidden="true">💼</div>
-      <h3 class="vacancy-card__cta-title">Не можете найти подходящую вакансию?</h3>
-      <p class="vacancy-card__cta-text">
-        Только за 1 минуту заполните простую анкету и получите предложения работ,
-        которые будут отвечать вашим требованиям!
-      </p>
-      <a class="btn btn--cta" href="#contact">ЗАПОЛНИТЬ</a>
+    <li>
+      <div class="vacancy-card vacancy-card--cta">
+        <div class="vacancy-card__cta-icon" aria-hidden="true">💼</div>
+        <h3 class="vacancy-card__cta-title">Не можете найти подходящую вакансию?</h3>
+        <p class="vacancy-card__cta-text">
+          Только за 1 минуту заполните простую анкету и получите предложения работ,
+          которые будут отвечать вашим требованиям!
+        </p>
+        <button
+          type="button"
+          class="btn btn--cta"
+          data-open-registration
+          data-vacancy-title="Общая заявка"
+        >
+          ЗАПОЛНИТЬ
+        </button>
+      </div>
     </li>
   `;
 }

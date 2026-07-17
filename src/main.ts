@@ -1,5 +1,10 @@
 import './style.css';
 import { renderVacanciesSection } from './renderVacancies';
+import {
+  initRegistrationModal,
+  renderRegistrationModal,
+  SUPPORT_EMAIL,
+} from './registrationModal';
 
 /** Замените на ваш реальный номер (отображение и ссылка tel:) */
 const CONTACT_PHONE_DISPLAY = '+380 00 000 00 00';
@@ -8,7 +13,7 @@ const CONTACT_PHONE_HREF = 'tel:+380000000000';
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="page">
     <header class="header">
-      <a class="brand" href="#top">Labour<span class="brand__accent">force</span></a>
+      <a class="brand" href="#top">Labour<span class="brand__accent">force</span> group</a>
       <nav class="nav" aria-label="Навигация">
         <a href="#about">О нас</a>
         <a href="#vacancies">Вакансии</a>
@@ -21,7 +26,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero__inner">
           <p class="hero__eyebrow">Кадровые решения для бизнеса</p>
-          <h1 id="hero-title" class="hero__title">Labour force</h1>
+          <h1 id="hero-title" class="hero__title">Labour force group</h1>
           <p class="hero__lead">
             Подбор персонала и сопровождение кадровых процессов — без лишнего шума,
             с фокусом на результат и сроки.
@@ -67,14 +72,18 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <section id="contact" class="section section--contact" aria-labelledby="contact-title">
         <div class="section__inner section__inner--narrow">
           <h2 id="contact-title" class="section__title">Контакты</h2>
-          <p class="contact__hint">Свяжитесь с нами по телефону:</p>
+          <p class="contact__hint">Свяжитесь с нами:</p>
           <a class="contact__phone" href="${CONTACT_PHONE_HREF}">${CONTACT_PHONE_DISPLAY}</a>
+          <a class="contact__email" href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <span class="footer__copy">© ${new Date().getFullYear()} Labour force</span>
+      <span class="footer__copy">© ${new Date().getFullYear()} Labour force group</span>
     </footer>
   </div>
+  ${renderRegistrationModal()}
 `;
+
+initRegistrationModal();

@@ -251,12 +251,27 @@ main {
 .vacancy-card {
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: 100%;
+  margin: 0;
   padding: 1.15rem 1.2rem 1.2rem;
   border-radius: 12px;
   border: 1px solid #e2e6ec;
   background: #ffffff;
   box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+button.vacancy-card:hover,
+button.vacancy-card:focus-visible {
+  border-color: #b8c4d6;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.1);
+  transform: translateY(-2px);
+  outline: none;
 }
 
 .vacancy-card__title {
@@ -399,7 +414,7 @@ main {
 }
 
 .contact__phone {
-  display: inline-block;
+  display: block;
   font-size: clamp(1.35rem, 4vw, 1.85rem);
   font-weight: 700;
   color: var(--accent);
@@ -407,8 +422,137 @@ main {
   letter-spacing: 0.02em;
 }
 
-.contact__phone:hover {
+.contact__phone:hover,
+.contact__email:hover {
   text-decoration: underline;
+}
+
+.contact__email {
+  display: inline-block;
+  margin-top: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 10, 14, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 440px);
+  max-height: min(92vh, 720px);
+  overflow: auto;
+  padding: 1.5rem 1.35rem 1.35rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.modal__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.75rem;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal__close:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.modal__title {
+  margin: 0 1.5rem 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.modal__vacancy {
+  margin: 0 0 1.15rem;
+  font-size: 0.9rem;
+  color: var(--accent);
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field__label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.field__input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.field__input:focus {
+  outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 1px;
+}
+
+.field__input--textarea {
+  resize: vertical;
+  min-height: 4.5rem;
+}
+
+.btn--submit {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.modal__note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
 }
 
 .footer {
